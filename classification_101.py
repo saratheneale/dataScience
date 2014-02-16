@@ -62,8 +62,6 @@ except Exception, e:
 
 #raw_input("\n\nHit enter to get started...")
 
-pp = pprint.PrettyPrinter(indent = 4)
-pp.pprint("RAWR")
     
 
 
@@ -127,9 +125,13 @@ def feature_extracting_function(data_point):
 
     return features
 
+    data_points = 0
+    misses_counter = 0
+    matches_counter = 0
+    frequency_count = {}#{key:{total:0,miss:0,match:0}}
 
 def myNaiveBayesTraining(trainSet):
-    
+    global data_points, misses_counter, matches_counter, frequency_count
     #Take train set. 
     #counters
     data_points = len(trainSet)
@@ -171,6 +173,10 @@ def myNaiveBayesTraining(trainSet):
 
     return 1
 
+def myClassify(data):
+    #Compare our feature set?
+    return 1
+
 
 #raw_input("\n\nHit enter to continue...")
 
@@ -178,14 +184,14 @@ print "Extracting Features from Training Set"
 
 train_set = apply_features(feature_extracting_function, known_data_points)
 
-for t in train_set:
-    print t
+# for t in train_set:
+#     print t
 
 
 
 
 
-raw_input("\n\nHit enter to continue...")
+# raw_input("\n\nHit enter to continue...")
 
 print "Gathering unknown data points (new data) to predict on (again, hand-coded, see script source)"
 
@@ -203,7 +209,7 @@ unknown_4 = "organic minty sweet dark"
 
 
 
-raw_input("\n\nHit enter to continue...")
+# raw_input("\n\nHit enter to continue...")
 
 #Train a Naive Bayes Classifier (simple but surprisingly effective).  This isn't the only classifier one could use (dtree is another, and there are many, many more), but it's a good start.
 
@@ -212,15 +218,28 @@ print "Sara's version: "
 
 #nb = nltk.NaiveBayesClassifier.train(train_set)
 nb2= myNaiveBayesTraining(train_set)
+print "data points: " + str(data_points)
+print "misses: "+ str(misses_counter)
+print "matches: " + str(matches_counter)
 
 
 
+#raw_input("\n\nHit enter to continue...")
 
-raw_input("\n\nHit enter to continue...")
+# Make guesses about our unknown projects:
 
-#Make guesses about our unknown projects:
+print "Predicting the class of unknown data points"
 
-# print "Predicting the class of unknown data points"
+featuresUnknown1 = feature_extracting_function(unknown_1)
+print featuresUnknown1
+
+print "Prediction for unknown_1: "+str(myClassify(feature_extracting_function(unknown_1)))
+
+# print "Prediction for unknown_2: "+str(myClassify(feature_extracting_function(unknown_2)))
+
+# print "Prediction for unknown_3: "+str(myClassify(feature_extracting_function(unknown_3)))
+
+# print "Prediction for unknown_4: "+str(myClassify(feature_extracting_function(unknown_4)))
 
 # print "Prediction for unknown_1: "+str(nb.classify(feature_extracting_function(unknown_1)))
 
